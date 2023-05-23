@@ -21,3 +21,10 @@ I will update this README periodically to track my progress as I solve more prob
 This repository serves as a representation of my progress and learning journey. I encourage you to explore my LeetCode profile [here](https://leetcode.com/Stutim/) to see my complete submissions and progress.
 
 
+
+
+
+#### LeetHub Integration
+This repository is integrated with LeetHub, a Chrome extension that automates the process of pushing code to GitHub when passing all tests on a LeetCode problem.
+
+
