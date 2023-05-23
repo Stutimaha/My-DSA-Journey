@@ -24,7 +24,6 @@ This repository serves as a representation of my progress and learning journey. 
 
 
 
-#### LeetHub Integration
-This repository is integrated with LeetHub, a Chrome extension that automates the process of pushing code to GitHub when passing all tests on a LeetCode problem.
+**LeetHub Integration**: This repository is integrated with LeetHub, which automates the process of pushing code to GitHub when passing all tests on a LeetCode problem.
 
 
