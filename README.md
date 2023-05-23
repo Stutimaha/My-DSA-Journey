@@ -10,7 +10,14 @@ I will update this README periodically to track my progress as I solve more prob
 
 ### Current Progress
 
-- [x] Solved 50 LeetCode problems
+- [x] Solved 40 LeetCode problems
+- [ ] Solved 50 LeetCode problems
 - [ ] Solved 100 LeetCode problems
 - [ ] Solved 200 LeetCode problems
+
+
+⚠️ **Note**: This repository may not contain all of my solved LeetCode questions, and the solutions provided here may not cover all possible approaches. I have solved a total of 45 LeetCode problems so far, but only a few have been added to this repository.
+
+This repository serves as a representation of my progress and learning journey. I encourage you to explore my LeetCode profile [here](https://leetcode.com/Stutim/) to see my complete submissions and progress.
+
 
