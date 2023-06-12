@@ -6,12 +6,13 @@ class Solution {
         int start=0; 
         int  end=start+1;
         
+        //if empty return empty
         if (n == 0) {
             return result; 
         }
         
-        while(end<n){
-            if (nums[end]-nums[end-1]==1){
+        while(end<=n){
+            if (end<n && nums[end]-nums[end-1]==1){
                 end++;
             }
             else{
@@ -25,12 +26,6 @@ class Solution {
                 start = end;
                 end = start + 1;
             }
-        }
-        
-        if (start == end - 1) {
-            result.add(String.valueOf(nums[start]));
-        } else {
-            result.add(nums[start] + "->" + nums[end - 1]);
         }
         return result;
     }
