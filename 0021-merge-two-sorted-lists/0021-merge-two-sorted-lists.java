@@ -1,7 +1,6 @@
 class Solution {
-
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        final ListNode root = new ListNode();
+        ListNode root = new ListNode();
         ListNode prev = root;
         while (list1 != null && list2 != null) {
             if (list1.val < list2.val) {
