@@ -1,36 +1,23 @@
 class Solution {
     public int[] getAverages(int[] nums, int k) {
-        // When a single element is considered then its average will be the number itself only.
-        if (k == 0) {
-            return nums;
-        }
-
         int n = nums.length;
-        int[] averages = new int[n];
-        Arrays.fill(averages, -1);
-
-        // Any index will not have 'k' elements in its left and right.
-        if (2 * k + 1 > n) {
-            return averages;
+        int windowSize = 2 * k + 1;
+        int[] ans = new int[n];
+        Arrays.fill(ans,-1);
+        
+        if (n < windowSize) {
+            return ans;
         }
-
-        // First get the sum of first window of the 'nums' array.
-        long windowSum = 0;
-        for (int i = 0; i < (2 * k + 1); ++i) {
-            windowSum += nums[i];
+        
+        long[] prefixSum = new long[n + 1];
+        for (int i = 0; i < n; ++i) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
         }
-        averages[k] = (int) (windowSum / (2 * k + 1));
-
-        // Iterate on rest indices which have at least 'k' elements 
-        // on its left and right sides.
-        for (int i = (2 * k + 1); i < n; ++i) {
-            // We remove the discarded element and add the new element to get current window sum.
-            // 'i' is the index of new inserted element, and
-            // 'i - (window size)' is the index of the last removed element.
-            windowSum = windowSum - nums[i - (2 * k + 1)] + nums[i];
-            averages[i - k] = (int) (windowSum / (2 * k + 1));
+        
+        for (int i = k; i + k < n; ++i) {
+            ans[i] = (int) ((prefixSum[i + k + 1] - prefixSum[i - k]) / windowSize);
         }
-
-        return averages;
+        
+        return ans;
     }
 }
