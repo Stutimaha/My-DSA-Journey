@@ -1,57 +1,58 @@
 class Solution {
     public String minWindow(String s, String t) {
-        char[] s_arr = s.toCharArray();
-        char[] t_arr = t.toCharArray();
         int m = s.length();
         int n = t.length();
-        String res = "";
-
-        if (n > m) {
-            return res;
+        String result = "";
+        
+        char[] chS = s.toCharArray();
+        char[] chT = t.toCharArray();
+        
+        if(n>m){
+            return result;
         }
-
+        
         HashMap<Character, Integer> map = new HashMap<>();
-        for (char c : t_arr) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
+        
+        for(char c : chT){
+            map.put(c, map.getOrDefault(c, 0)+1);
         }
-
+        
         int left = 0;
         int right = 0;
+        int length  = 0;
         int count = map.size();
-        int minLength = Integer.MAX_VALUE;
+        int minLen = Integer.MAX_VALUE;
         int start = 0;
-
-        while (right < m) {
-            char curr = s_arr[right];
-            if (map.containsKey(curr)) {
-                map.put(curr, map.get(curr) - 1);
-                if (map.get(curr) == 0) {
+        
+        while (right<m){
+            if(map.containsKey(chS[right])){
+                map.put(chS[right], map.get(chS[right])-1);
+                if(map.get(chS[right])==0){
                     count--;
                 }
             }
             right++;
-
-            while (count == 0) {
-                if (right - left < minLength) {
-                    minLength = right - left;
+            
+            while(count==0){
+                if(right - left < minLen){
+                    minLen = right - left;
                     start = left;
                 }
-
-                char leftChar = s_arr[left];
-                if (map.containsKey(leftChar)) {
-                    map.put(leftChar, map.get(leftChar) + 1);
-                    if (map.get(leftChar) > 0) {
+                if(map.containsKey(chS[left])){
+                    map.put(chS[left], map.get(chS[left])+1);
+                    if(map.get(chS[left])>0){
                         count++;
                     }
                 }
                 left++;
             }
+            
         }
-
-        if (minLength != Integer.MAX_VALUE) {
-            res = s.substring(start, start + minLength);
+        
+        if (minLen != Integer.MAX_VALUE) {
+            result = s.substring(start, start + minLen);
         }
-
-        return res;
+        
+        return result;
     }
 }
