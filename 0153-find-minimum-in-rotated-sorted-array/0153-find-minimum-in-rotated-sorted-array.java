@@ -16,13 +16,7 @@ class Solution {
         }
         pivot = start;
         
-        int answer = 0;        
-        if(pivot==n-1){
-            answer = nums[n-1];
-        }
-        else{
-            answer = nums[pivot];
-        }
+        int answer = nums[pivot];    
         return answer;
     }
 }
