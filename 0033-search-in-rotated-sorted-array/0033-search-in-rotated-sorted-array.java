@@ -15,15 +15,22 @@ class Solution {
             }
         }
         pivot = start;
-
+        
         start = 0;
         end = n - 1;
+        
+        if(target > nums[end]){
+            end = pivot - 1;
+        }
+        else{
+            start = pivot;
+        }
+        
         while (start <= end) {
             mid = start + (end - start) / 2;
-            int adjustedMid = (mid + pivot) % n; 
-            if (nums[adjustedMid] == target) {
-                return adjustedMid;
-            } else if (nums[adjustedMid] < target) {
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
                 start = mid + 1;
             } else {
                 end = mid - 1;
