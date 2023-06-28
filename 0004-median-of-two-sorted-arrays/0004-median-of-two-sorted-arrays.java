@@ -1,30 +1,23 @@
 class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int n1 = nums1.length;
-        int n2 = nums2.length;
-        double ans = 0;
-        
-        int[] nums = new int[n1+n2];
-        
-        for(int i=0; i<n1; i++){
-            nums[i]=nums1[i];
+    public double findMedianSortedArrays(int[] A, int[] B) {
+            int m = A.length, n = B.length;
+            int l = (m + n + 1) / 2;
+            int r = (m + n + 2) / 2;
+            return (getkth(A, 0, B, 0, l) + getkth(A, 0, B, 0, r)) / 2.0;
         }
-        for(int i=0; i<n2; i++){
-            nums[n1+i]=nums2[i];
-        }
-        
-        Arrays.sort(nums);
-        
-        int start = 0;
-        int end = n1+n2-1;
-        int mid = start+end/2;
-        
-        if((n1+n2)%2==1){
-            ans = (double) nums[mid];
-        }
-        else{
-            ans = (double) (nums[mid]+nums[mid+1])/2;
-        }
-        return ans;
+
+    public double getkth(int[] A, int aStart, int[] B, int bStart, int k) {
+        if (aStart > A.length - 1) return B[bStart + k - 1];            
+        if (bStart > B.length - 1) return A[aStart + k - 1];                
+        if (k == 1) return Math.min(A[aStart], B[bStart]);
+
+        int aMid = Integer.MAX_VALUE, bMid = Integer.MAX_VALUE;
+        if (aStart + k/2 - 1 < A.length) aMid = A[aStart + k/2 - 1]; 
+        if (bStart + k/2 - 1 < B.length) bMid = B[bStart + k/2 - 1];        
+
+        if (aMid < bMid) 
+            return getkth(A, aStart + k/2, B, bStart,       k - k/2);
+        else 
+            return getkth(A, aStart,       B, bStart + k/2, k - k/2);
     }
 }
