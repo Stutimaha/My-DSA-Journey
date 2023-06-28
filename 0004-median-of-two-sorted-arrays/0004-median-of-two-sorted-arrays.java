@@ -25,7 +25,6 @@ class Solution {
         else{
             ans = (double) (nums[mid]+nums[mid+1])/2;
         }
-        //System.out.print(Arrays.toString(nums));
         return ans;
     }
 }
