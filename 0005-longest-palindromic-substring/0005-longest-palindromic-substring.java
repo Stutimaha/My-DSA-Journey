@@ -5,6 +5,8 @@ class Solution {
     public String longestPalindrome(String s) {
         String res = "";
        
+        if (s.length() < 2)	return s;
+        
         for(int i = 0; i<s.length();i++){
             extendPalindrome(s, i, i);
             extendPalindrome(s,i,i+1);
