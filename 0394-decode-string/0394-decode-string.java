@@ -2,39 +2,31 @@ import java.util.Stack;
 
 public class Solution {
     public String decodeString(String s) {
-        Stack<Character> stack = new Stack<>();
-        
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        StringBuilder currentStr = new StringBuilder();
+        int count = 0;
+
         for (char c : s.toCharArray()) {
-            if (c != ']') {
-                stack.push(c);
+            if (Character.isDigit(c)) {
+                count = count * 10 + (c - '0');
+            } else if (c == '[') {
+                countStack.push(count);
+                strStack.push(currentStr);
+                count = 0;
+                currentStr = new StringBuilder();
+            } else if (c == ']') {
+                StringBuilder decodedStr = strStack.pop();
+                int repeatCount = countStack.pop();
+                for (int i = 0; i < repeatCount; i++) {
+                    decodedStr.append(currentStr);
+                }
+                currentStr = decodedStr;
             } else {
-                StringBuilder sb = new StringBuilder();
-                while (!stack.isEmpty() && stack.peek() != '[') {
-                    sb.insert(0, stack.pop());
-                }
-                
-                stack.pop();
-                
-                StringBuilder numStr = new StringBuilder();
-                while (!stack.isEmpty() && Character.isDigit(stack.peek())) {
-                    numStr.insert(0, stack.pop());
-                }
-                int num = Integer.parseInt(numStr.toString());
-                
-                String decodedSubstring = sb.toString();
-                for (int i = 0; i < num; i++) {
-                    for (char ch : decodedSubstring.toCharArray()) {
-                        stack.push(ch);
-                    }
-                }
+                currentStr.append(c);
             }
         }
-        
-        StringBuilder result = new StringBuilder();
-        while (!stack.isEmpty()) {
-            result.insert(0, stack.pop());
-        }
-        
-        return result.toString();
+
+        return currentStr.toString();
     }
 }
