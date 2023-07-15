@@ -17,13 +17,9 @@ class Solution {
         if (nums[mid] == target) {
             return mid;
         }
-        else if(nums[mid]>target){
-            end = mid-1;            
-            return  answer(nums, target, start, end);
+        if(nums[mid]>target){          
+            return  answer(nums, target, start, mid-1);
         }
-        else{
-            start = mid+1;
-            return answer(nums, target, start, end);
-        }
+        return answer(nums, target, mid+1, end);
     }
 }
