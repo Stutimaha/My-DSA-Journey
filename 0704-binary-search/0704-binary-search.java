@@ -1,10 +1,6 @@
 class Solution {
     public int search(int[] nums, int target) {
-        int n = nums.length;
-        int start = 0;
-        int end = n-1;     
-
-        return answer(nums, target, start, end);
+        return answer(nums, target, 0, nums.length-1);
     }    
     
     public int answer(int[] nums, int target, int start, int end) {
