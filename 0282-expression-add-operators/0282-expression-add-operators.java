@@ -1,31 +1,28 @@
-class Solution {
+public class Solution {
     public List<String> addOperators(String num, int target) {
-        List<String> result = new ArrayList<>();
-            backtrack(num, target, 0, 0, 0, "", result);
-            return result;
-        }
-
-    private void backtrack(String num, int target, int index, long currentVal, long prevNum, String currentExpr, List<String> result) {
-        if (index == num.length()) {
-            if (currentVal == target) {
-                result.add(currentExpr);
-            }
+        List<String> rst = new ArrayList<String>();
+        if(num == null || num.length() == 0) return rst;
+        helper(rst, "", num, target, 0, 0, 0);
+        return rst;
+    }
+    public void helper(List<String> rst, String path, String num, int target, int pos, long eval, long multed){
+        if(pos == num.length()){
+            if(target == eval)
+                rst.add(path);
             return;
         }
-
-        for (int i = index; i < num.length(); i++) {
-            if (i != index && num.charAt(index) == '0') {
-                break;
+        for(int i = pos; i < num.length(); i++){
+            if(i != pos && num.charAt(pos) == '0') break;
+            long cur = Long.parseLong(num.substring(pos, i + 1));
+            if(pos == 0){
+                helper(rst, path + cur, num, target, i + 1, cur, cur);
             }
-
-            long currentNum = Long.parseLong(num.substring(index, i + 1));
-
-            if (index == 0) {
-                backtrack(num, target, i + 1, currentNum, currentNum, currentExpr + currentNum, result);
-            } else {
-                backtrack(num, target, i + 1, currentVal + currentNum, currentNum, currentExpr + "+" + currentNum, result);
-                backtrack(num, target, i + 1, currentVal - currentNum, -currentNum, currentExpr + "-" + currentNum, result);
-                backtrack(num, target, i + 1, currentVal - prevNum + prevNum * currentNum, prevNum * currentNum, currentExpr + "*" + currentNum, result);
+            else{
+                helper(rst, path + "+" + cur, num, target, i + 1, eval + cur , cur);
+                
+                helper(rst, path + "-" + cur, num, target, i + 1, eval -cur, -cur);
+                
+                helper(rst, path + "*" + cur, num, target, i + 1, eval - multed + multed * cur, multed * cur );
             }
         }
     }
