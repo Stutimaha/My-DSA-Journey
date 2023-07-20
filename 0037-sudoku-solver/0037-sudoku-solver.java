@@ -1,33 +1,46 @@
 class Solution {
-     public void solveSudoku(char[][] board) {
-        doSolve(board, 0, 0);
+    public void solveSudoku(char[][] board) {
+        solve(board);
     }
-    
-    private boolean doSolve(char[][] board, int row, int col) {
-        for (int i = row; i < 9; i++, col = 0) { 
-            for (int j = col; j < 9; j++) {
-                if (board[i][j] != '.') continue;
-                for (char num = '1'; num <= '9'; num++) {
-                    if (isValid(board, i, j, num)) {
-                        board[i][j] = num;
-                        if (doSolve(board, i, j + 1))
-                            return true;
-                        board[i][j] = '.';
+
+    private boolean solve(char[][] board) {
+        for(int row = 0; row<9;row++){
+            for(int col = 0; col<9;col++){
+                if(board[row][col] == '.'){
+                    for(char num = '1'; num<='9';num++){
+                        if (isValidPlacement(board, row, col, num)) {
+                            board[row][col] = num;
+                            if (solve(board)) {
+                                return true;
+                            } else {
+                                board[row][col] = '.';
+                            }
+                        }
                     }
+                    return false;
                 }
-                return false;
             }
         }
         return true;
     }
     
-        private boolean isValid(char[][] board, int row, int col, char c){
-        int regionRow = 3 * (row / 3);  
-        int regionCol = 3 * (col / 3);  
-        for (int i = 0; i < 9; i++) {
-            if (board[i][col] == c) return false;
-            if (board[row][i] == c) return false; 
-            if (board[regionRow + i / 3][regionCol + i % 3] == c) return false;
+    private boolean isValidPlacement(char[][] board, int row, int col, char num){
+        for(int i = 0; i<9; i++){
+            if(board[row][i]==num || board[i][col]==num){
+                return false;
+            }
+        }
+        
+        //check square
+        int startRow = 3 * (row/3);
+        int startCol = 3 * (col/3);
+        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[startRow + i][startCol + j] == num) {
+                    return false; 
+                }
+            }
         }
         return true;
     }
