@@ -1,54 +1,30 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
+    private int idx = 0;
+
     public TreeNode recoverFromPreorder(String traversal) {
-        Stack<TreeNode> stack = new Stack<>();
-        int idx = 0;
-        
-        while(idx<traversal.length()){
-            int level = 0;
-            while(traversal.charAt(idx) == '-'){
-                level++;
-                idx++;
-            }
-            
-            int val = 0;
-            while (idx < traversal.length() && Character.isDigit(traversal.charAt(idx))){
-                val = val * 10 + (traversal.charAt(idx)-'0');
-                idx++;
-            }
-            
-            TreeNode node = new TreeNode(val);
-            
-            if(level == stack.size()){
-                if(!stack.isEmpty()){
-                    stack.peek().left = node;
-                }
-            }
-            else{
-                while(level != stack.size()){
-                    stack.pop();
-                }
-                stack.peek().right = node;
-            }
-            stack.push(node);
+        return recover(traversal, 0);
+    }
+
+    private TreeNode recover(String traversal, int depth) {
+        int numDashes = 0;
+        while (idx + numDashes < traversal.length() && traversal.charAt(idx + numDashes) == '-') {
+            numDashes++;
         }
-        while (stack.size() > 1) {
-            stack.pop();
+
+        if (numDashes != depth) {
+            return null;
         }
-        return stack.peek(); //this will be the root node
+
+        idx += numDashes;
+        int value = 0;
+        while (idx < traversal.length() && Character.isDigit(traversal.charAt(idx))) {
+            value = value * 10 + (traversal.charAt(idx) - '0');
+            idx++;
+        }
+
+        TreeNode node = new TreeNode(value);
+        node.left = recover(traversal, depth + 1);
+        node.right = recover(traversal, depth + 1);
+        return node;
     }
 }
