@@ -5,6 +5,11 @@ class Solution {
         int right = 10000007; 
         int result = -1;
         
+        int hr = (int) Math.ceil(hour);
+        if(hr<n){
+            return result;
+        }
+        
         // Binary search
         while (left <= right) {
             int mid = left + (right - left) / 2;
@@ -26,3 +31,4 @@ class Solution {
         return result;
     }
 }
+
