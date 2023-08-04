@@ -23,7 +23,7 @@ class Solution {
             }
         }
 
-        memo.add(s); // Memoize the result for this substring.
+        memo.add(s); 
         return false;
     }
 }
