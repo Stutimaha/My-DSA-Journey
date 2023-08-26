@@ -1,7 +1,6 @@
 class Solution {
     public int findLongestChain(int[][] pairs) {
-                Arrays.sort(pairs, Comparator.comparingInt(a -> a[1])); // Sort the pairs by the second element
-
+        Arrays.sort(pairs, Comparator.comparingInt(a -> a[1]));
         int count = 1;
         int end = pairs[0][1]; 
         
