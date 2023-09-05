@@ -8,6 +8,15 @@ class Solution {
         int n = words.length;
         int maxScore = 0;
 
+        int[] wordScores = new int[n];
+        for (int i = 0; i < n; i++) {
+            int wordScore = 0;
+            for (char c : words[i].toCharArray()) {
+                wordScore += score[c - 'a'];
+            }
+            wordScores[i] = wordScore;
+        }
+
         for (int mask = 0; mask < (1 << n); mask++) {
             int[] tempLetterCount = letterCount.clone();
             int subsetScore = 0;
@@ -15,10 +24,10 @@ class Solution {
 
             for (int i = 0; i < n; i++) {
                 if ((mask & (1 << i)) != 0) {
+                    subsetScore += wordScores[i];
                     for (char c : words[i].toCharArray()) {
                         int index = c - 'a';
                         if (tempLetterCount[index] > 0) {
-                            subsetScore += score[index];
                             tempLetterCount[index]--;
                         } else {
                             validSubset = false;
