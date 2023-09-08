@@ -3,7 +3,7 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
 
         if (numRows >= 1) {
-            result.add(Arrays.asList(1)); // Base case: first row [1]
+            result.add(Arrays.asList(1)); 
         }
 
         for (int i = 1; i < numRows; i++) {
