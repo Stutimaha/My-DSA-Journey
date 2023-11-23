@@ -1,13 +1,17 @@
 class Solution(object):
     def plusOne(self, digits):
         n = len(digits)
+        carry = 1 
 
         for i in range(n - 1, -1, -1):
-            digits[i] += 1
+            digits[i] += carry
+            carry = digits[i] // 10
+            digits[i] %= 10
 
-            if digits[i] == 10:
-                digits[i] = 0
-            else:
-                return digits
+        if carry:
+            digits.insert(0, carry)
 
-        return [1] + digits    
+        while digits and digits[0] == 0:
+            digits.pop(0)
+
+        return digits    
