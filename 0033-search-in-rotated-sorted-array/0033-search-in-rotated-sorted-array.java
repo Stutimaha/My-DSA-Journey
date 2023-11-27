@@ -1,39 +1,27 @@
 class Solution {
     public int search(int[] nums, int target) {
-        int n = nums.length;
-        int start = 0;
-        int end = n - 1;
-        int pivot = -1;
-        int mid;
+        int s = 0;
+        int e = nums.length - 1;
 
-        while (start < end) {
-            mid = start + (end - start) / 2;
-            if (nums[mid] > nums[end]) {
-                start = mid + 1;
-            } else {
-                end = mid;
-            }
-        }
-        pivot = start;
-        
-        start = 0;
-        end = n - 1;
-        
-        if(target > nums[end]){
-            end = pivot - 1;
-        }
-        else{
-            start = pivot;
-        }
-        
-        while (start <= end) {
-            mid = start + (end - start) / 2;
+        while (s <= e) {
+            int mid = (s + e) / 2;
+
             if (nums[mid] == target) {
                 return mid;
-            } else if (nums[mid] < target) {
-                start = mid + 1;
+            }
+
+            if (nums[s] <= nums[mid]) {
+                if (nums[s] <= target && target < nums[mid]) {
+                    e = mid - 1;
+                } else {
+                    s = mid + 1;
+                }
             } else {
-                end = mid - 1;
+                if (nums[mid] < target && target <= nums[e]) {
+                    s = mid + 1;
+                } else {
+                    e = mid - 1;
+                }
             }
         }
 
