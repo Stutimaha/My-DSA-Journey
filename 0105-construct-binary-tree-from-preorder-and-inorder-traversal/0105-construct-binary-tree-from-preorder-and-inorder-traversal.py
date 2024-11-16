@@ -1,27 +1,27 @@
-# Definition for a binary tree node.
 # class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
+#     def __init__(self, val = 0, left = None, right = None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution(object):
     def buildTree(self, preorder, inorder):
-        """
-        :type preorder: List[int]
-        :type inorder: List[int]
-        :rtype: Optional[TreeNode]
-        """
-        if not preorder or not inorder:
-            return None
+        inorder_index_map = {value: idx for idx, value in enumerate(inorder)}
         
-        root_val = preorder.pop(0)
-        root = TreeNode(root_val)  
-        root_index = inorder.index(root_val)
+        self.preorder_index = 0
         
-        # Recursion
-        root.left = self.buildTree(preorder, inorder[:root_index])
-        root.right = self.buildTree(preorder, inorder[root_index+1:])
-        
-        return root
-        
-        
+        def array_to_tree(left, right):
+            if left>right: # No nodes remaining
+                return None 
+            
+            root_val = preorder[self.preorder_index]
+            self.preorder_index += 1
+            
+            root = TreeNode(root_val)
+            
+            root_index = inorder_index_map[root_val]
+            root.left = array_to_tree(left, root_index-1)
+            root.right = array_to_tree(root_index+1,right)
+            
+            return root
+        return array_to_tree(0, len(inorder)-1)
